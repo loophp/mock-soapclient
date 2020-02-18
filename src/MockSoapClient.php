@@ -6,6 +6,7 @@ namespace loophp\MockSoapClient;
 
 use SoapClient;
 use SoapFault;
+use SoapHeader;
 
 use function array_key_exists;
 use function count;
@@ -43,7 +44,7 @@ class MockSoapClient extends SoapClient
      * @param string $function_name
      * @param array<mixed> $arguments
      * @param array<mixed>|null $options
-     * @param array<mixed>|null $input_headers
+     * @param array<mixed>|SoapHeader|null $input_headers
      * @param array<mixed>|null $output_headers
      *
      * @throws SoapFault
@@ -57,7 +58,7 @@ class MockSoapClient extends SoapClient
         $input_headers = null,
         &$output_headers = null
     ) {
-        $index = $this->currentIndex++;
+        $index = ++$this->currentIndex;
 
         if (false === is_array($this->responses) && false === is_callable($this->responses)) {
             throw new SoapFault('Server', 'Invalid mock response format');
