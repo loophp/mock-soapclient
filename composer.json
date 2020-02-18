@@ -1,0 +1,29 @@
+{
+    "name": "loophp/mock-soapclient",
+    "description": "A friendly mockable SOAP client, useful for tests.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pol Dellaiera",
+            "email": "pol.dellaiera@protonmail.com"
+        }
+    ],
+    "require": {
+        "ext-soap": "^7.1"
+    },
+    "require-dev": {
+        "drupol/php-conventions": "^1.6",
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
+        "infection/infection": "^0.15.3",
+        "phpspec/phpspec": "^6.1",
+        "vimeo/psalm": "^3.9"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "loophp\\MockSoapClient\\": "./src/"
+        }
+    }
+}
