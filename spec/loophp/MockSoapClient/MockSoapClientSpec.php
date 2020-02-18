@@ -12,6 +12,35 @@ use stdClass;
 
 class MockSoapClientSpec extends ObjectBehavior
 {
+    public function it_can_handle_an_array_of_responses_as_callable()
+    {
+        $responses = [
+            static function (string $method, array $arguments) {
+                return '00' . $method;
+            },
+            static function (string $method, array $arguments) {
+                return '11' . $method;
+            },
+            static function (string $method, array $arguments) {
+                throw new SoapFault('Server', 'Server');
+            },
+        ];
+
+        $this->beConstructedWith($responses);
+
+        $this
+            ->__soapCall('foo', [])
+            ->shouldReturn('00foo');
+
+        $this
+            ->__soapCall('foo', [])
+            ->shouldReturn('11foo');
+
+        $this
+            ->shouldThrow(SoapFault::class)
+            ->during('__soapCall', ['foo', []]);
+    }
+
     public function it_is_able_to_handle_exception()
     {
         $responses = [

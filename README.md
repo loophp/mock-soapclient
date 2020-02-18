@@ -33,12 +33,12 @@ $responses = ['a', 'b', 'c'];
 
 $client = new MockSoapClient($responses);
 
-$response = $client->__soapCall('foo', []); // a
-$response = $client->__soapCall('bar', []); // b
-$response = $client->__soapCall('w00t', []); // c
-$response = $client->__soapCall('foobar', []); // a
-$response = $client->__soapCall('barfoo', []); // b
-$response = $client->__soapCall('plop', []); // c
+$client->__soapCall('foo', []); // a
+$client->__soapCall('bar', []); // b
+$client->__soapCall('w00t', []); // c
+$client->__soapCall('foobar', []); // a
+$client->__soapCall('barfoo', []); // b
+$client->__soapCall('plop', []); // c
 ```
 
 Or using a closure
@@ -56,10 +56,53 @@ $responses = static function ($method, $arguments) {
 
 $client = new MockSoapClient($responses);
 
-$response = $client->__soapCall('foo', []); // foo
-$response = $client->__soapCall('bar', []); // bar
-$response = $client->__soapCall('w00t', []); // w00t
-$response = $client->__soapCall('foobar', []); // foobar
-$response = $client->__soapCall('barfoo', []); // barfoo
-$response = $client->__soapCall('plop', []); // plop
+$client->__soapCall('foo', []); // foo
+$client->__soapCall('bar', []); // bar
+$client->__soapCall('w00t', []); // w00t
+$client->__soapCall('foobar', []); // foobar
+$client->__soapCall('barfoo', []); // barfoo
+$client->__soapCall('plop', []); // plop
 ```
+
+Or using multiple closures
+
+```php
+<?php
+
+include __DIR__ . '/vendor/autoload.php';
+
+use loophp\MockSoapClient\MockSoapClient;
+
+$responses = [
+    static function (string $method, array $arguments) {
+        return '00' . $method;
+    },
+    static function (string $method, array $arguments) {
+        return '11' . $method;
+    },
+    static function (string $method, array $arguments) {
+        throw new SoapFault('Server', 'Server');
+    },
+];
+
+$client = new MockSoapClient($responses);
+
+$client->__soapCall('foo', []); // 00foo
+$client->__soapCall('bar', []); // 11bar
+$client->__soapCall('w00t', []); // SoapFault exception.
+```
+
+## Code quality, tests and benchmarks
+
+Every time changes are introduced into the library, [Github](https://github.com/loophp/mock-soapclient/actions) run the tests and the benchmarks.
+
+The library has tests written with [PHPSpec](http://www.phpspec.net/).
+Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.
+
+Before each commit some inspections are executed with [GrumPHP](https://github.com/phpro/grumphp), run `./vendor/bin/grumphp run` to check manually.
+
+[PHPInfection](https://github.com/infection/infection) is used to ensure that your code is properly tested, run `composer infection` to test your code.
+
+## Contributing
+
+Feel free to contribute to this library by sending Github pull requests.

@@ -74,6 +74,10 @@ class MockSoapClient extends SoapClient
 
         $response = $responses[$index];
 
+        if (is_callable($response)) {
+            return ($response)(...func_get_args());
+        }
+
         if ($response instanceof SoapFault) {
             throw $response;
         }
