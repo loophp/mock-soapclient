@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace loophp\MockSoapClient;
 
+use InvalidArgumentException;
 use SoapClient;
 use SoapFault;
 use SoapHeader;
 
-use function array_key_exists;
 use function count;
 use function func_get_args;
 use function is_array;
@@ -25,7 +25,7 @@ class MockSoapClient extends SoapClient
     private $currentIndex;
 
     /**
-     * @var array<mixed>|callable|null
+     * @var array<mixed>|callable
      */
     private $responses;
 
@@ -36,8 +36,12 @@ class MockSoapClient extends SoapClient
      */
     public function __construct($responses = null)
     {
+        if (false === is_array($responses) && false === is_callable($responses)) {
+            throw new InvalidArgumentException('The response argument must be an array or a callable.');
+        }
+
         $this->responses = $responses;
-        $this->currentIndex = -1;
+        $this->currentIndex = 0;
     }
 
     /**
@@ -58,11 +62,7 @@ class MockSoapClient extends SoapClient
         $input_headers = null,
         &$output_headers = null
     ) {
-        $index = ++$this->currentIndex;
-
-        if (false === is_array($this->responses) && false === is_callable($this->responses)) {
-            throw new SoapFault('Server', 'Invalid mock response format');
-        }
+        $index = $this->currentIndex++;
 
         $responses = $this->responses;
 
@@ -71,10 +71,6 @@ class MockSoapClient extends SoapClient
         }
 
         $index %= count($responses);
-
-        if (!array_key_exists($index, $responses)) {
-            throw new SoapFault('Server', 'No more mock responses.');
-        }
 
         $response = $responses[$index];
 
