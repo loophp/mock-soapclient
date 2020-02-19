@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace loophp\MockSoapClient;
 
+use ArrayIterator;
+use InfiniteIterator;
 use InvalidArgumentException;
 use SoapClient;
 use SoapFault;
 use SoapHeader;
 
 use function array_key_exists;
-use function count;
 use function func_get_args;
 use function is_callable;
 
@@ -22,14 +23,9 @@ use const ARRAY_FILTER_USE_KEY;
 class MockSoapClient extends SoapClient
 {
     /**
-     * @var array<string, int>
+     * @var array<int|string, InfiniteIterator>
      */
-    private $indexes;
-
-    /**
-     * @var array<mixed>
-     */
-    private $responses;
+    private $iterators;
 
     /**
      * MockSoapClient constructor.
@@ -44,10 +40,7 @@ class MockSoapClient extends SoapClient
             throw new InvalidArgumentException('The response argument cannot be empty.');
         }
 
-        $this->responses = $responses;
-        $this->indexes = [
-            '*' => 0,
-        ];
+        $this->iterators = $this->buildIterators($responses);
     }
 
     /**
@@ -87,33 +80,14 @@ class MockSoapClient extends SoapClient
         $input_headers = null,
         &$output_headers = null
     ) {
-        if (false === array_key_exists($function_name, $this->indexes)) {
-            $this->indexes[$function_name] = 0;
-        }
+        $iterator = true === array_key_exists($function_name, $this->iterators) ?
+            $this->iterators[$function_name] :
+            $this->iterators['*'];
 
-        $index = &$this->indexes['*'];
-        $responses = $this->responses;
+        $response = $iterator->current();
+        $iterator->next();
 
-        if (true === array_key_exists($function_name, $responses)) {
-            $responses = (array) $responses[$function_name];
-            $index = &$this->indexes[$function_name];
-        }
-
-        $index %= count(
-            array_filter(
-                $responses,
-                static function (string $key) {
-                    return is_numeric($key);
-                },
-                ARRAY_FILTER_USE_KEY
-            )
-        );
-
-        $response = $responses[$index];
-
-        if (is_callable($response)) {
-            ++$index;
-
+        if (true === is_callable($response)) {
             return ($response)(...func_get_args());
         }
 
@@ -121,8 +95,45 @@ class MockSoapClient extends SoapClient
             throw $response;
         }
 
-        ++$index;
-
         return $response;
+    }
+
+    /**
+     * Build a simple Infinite iterator.
+     *
+     * @param array<mixed> $data
+     *
+     * @return InfiniteIterator
+     */
+    private function buildIterator(array $data): InfiniteIterator
+    {
+        $iterator = new InfiniteIterator(new ArrayIterator($data));
+        $iterator->rewind();
+
+        return $iterator;
+    }
+
+    /**
+     * Build the structure of iterators.
+     *
+     * @param array<mixed> $data
+     *
+     * @return array<int|string, InfiniteIterator>
+     */
+    private function buildIterators(array $data): array
+    {
+        $iterators = [
+            '*' => $this->buildIterator(array_filter($data, 'is_numeric', ARRAY_FILTER_USE_KEY)),
+        ];
+
+        foreach ($data as $key => $response) {
+            if (true === is_numeric($key)) {
+                continue;
+            }
+
+            $iterators[$key] = $this->buildIterator((array) $data[$key]);
+        }
+
+        return $iterators;
     }
 }
