@@ -33,12 +33,12 @@ $responses = ['a', 'b', 'c'];
 
 $client = new MockSoapClient($responses);
 
-$client->__soapCall('foo', []); // a
-$client->__soapCall('bar', []); // b
-$client->__soapCall('w00t', []); // c
-$client->__soapCall('foobar', []); // a
-$client->__soapCall('barfoo', []); // b
-$client->__soapCall('plop', []); // c
+$client->foo();  // a
+$client->bar();  // b
+$client->w00t(); // c
+$client->foobar(); // a
+$client->barfoo(); // b
+$client->plop();   // c
 ```
 
 Or using a closure
@@ -56,12 +56,42 @@ $responses = static function ($method, $arguments) {
 
 $client = new MockSoapClient($responses);
 
-$client->__soapCall('foo', []); // foo
-$client->__soapCall('bar', []); // bar
-$client->__soapCall('w00t', []); // w00t
-$client->__soapCall('foobar', []); // foobar
-$client->__soapCall('barfoo', []); // barfoo
-$client->__soapCall('plop', []); // plop
+$client->foo();  // foo
+$client->bar();  // bar
+$client->w00t(); // w00t
+$client->foobar(); // foobar
+$client->barfoo(); // barfoo
+$client->plop();   // plop
+```
+
+```php
+<?php
+
+declare(strict_types=1);
+
+include __DIR__ . '/vendor/autoload.php';
+
+use loophp\MockSoapClient\MockSoapClient;
+
+$responses = static function ($method, $arguments) {
+    switch ($method) {
+        case 'foo':
+            return 'foo_method';
+        case 'bar':
+            return 'bar_method';
+    }
+
+    throw new SoapFault('Server', sprintf('Unknown SOAP method "%s"', $method));
+};
+
+$client = new MockSoapClient($responses);
+
+$client->foo();                  // foo_method
+$client->__soapCall('foo', []);  // foo_method
+$client->bar();                  // bar_method
+$client->__soapCall('bar', []);  // bar_method
+$client->w00t();                 // Throws exception SoapFault.
+$client->__soapCall('w00t', []); // Throws exception SoapFault.
 ```
 
 Or using multiple closures
@@ -87,9 +117,55 @@ $responses = [
 
 $client = new MockSoapClient($responses);
 
-$client->__soapCall('foo', []); // 00foo
-$client->__soapCall('bar', []); // 11bar
-$client->__soapCall('w00t', []); // SoapFault exception.
+$client->foo();  // 00foo
+$client->bar();  // 11bar
+$client->w00t(); // SoapFault exception.
+```
+
+Advanced responses factory
+
+```php
+<?php
+
+declare(strict_types=1);
+
+include __DIR__ . '/vendor/autoload.php';
+
+use loophp\MockSoapClient\MockSoapClient;
+
+$responses = [
+    'a',
+    'b',
+    'c',
+    'a' => 'aaa',
+    'b' => [
+        'bbb1',
+        'bbb2',
+    ],
+    'c' => [
+        static function ($method, $arguments) {
+            return 'ccc1';
+        },
+        static function ($method, $arguments) {
+            return 'ccc2';
+        },
+    ],
+];
+
+$client = new MockSoapClient($responses);
+
+$client->foo(); // a
+$client->foo(); // b
+$client->foo(); // c
+$client->foo(); // a
+$client->a(); // aaa
+$client->a(); // aaa
+$client->b(); // bbb1
+$client->b(); // bbb2
+$client->b(); // bbb1
+$client->c(); // ccc1
+$client->c(); // ccc2
+$client->c(); // ccc1
 ```
 
 ## Code quality, tests and benchmarks

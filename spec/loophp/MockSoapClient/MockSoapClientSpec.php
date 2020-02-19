@@ -41,6 +41,87 @@ class MockSoapClientSpec extends ObjectBehavior
             ->during('__soapCall', ['foo', []]);
     }
 
+    public function it_can_handle_complex_structure_of_responses()
+    {
+        $responses = [
+            'a',
+            'b',
+            'c',
+            'a' => 'aaa',
+            'b' => [
+                'bbb1',
+                'bbb2',
+            ],
+            'c' => [
+                static function ($method, $arguments) {
+                    return 'ccc1';
+                },
+                static function ($method, $arguments) {
+                    return 'ccc2';
+                },
+            ],
+        ];
+
+        $this->beConstructedWith($responses);
+
+        $this
+            ->foo()
+            ->shouldReturn('a');
+        $this
+            ->foo()
+            ->shouldReturn('b');
+        $this
+            ->foo()
+            ->shouldReturn('c');
+        $this
+            ->a()
+            ->shouldReturn('aaa');
+        $this
+            ->a()
+            ->shouldReturn('aaa');
+        $this
+            ->b()
+            ->shouldReturn('bbb1');
+        $this
+            ->b()
+            ->shouldReturn('bbb2');
+        $this
+            ->b()
+            ->shouldReturn('bbb1');
+        $this
+            ->c()
+            ->shouldReturn('ccc1');
+        $this
+            ->c()
+            ->shouldReturn('ccc2');
+        $this
+            ->c()
+            ->shouldReturn('ccc1');
+        $this
+            ->foo()
+            ->shouldReturn('a');
+    }
+
+    public function it_can_use_a_simple_callable_as_response()
+    {
+        $responses = static function ($method, $arguments) {
+            return $method;
+        };
+
+        $this->beConstructedWith($responses);
+
+        $this
+            ->foo()
+            ->shouldReturn('foo');
+    }
+
+    public function it_foo()
+    {
+        $this
+            ->shouldThrow(InvalidArgumentException::class)
+            ->during('__construct', [null]);
+    }
+
     public function it_is_able_to_handle_exception()
     {
         $responses = [
@@ -52,6 +133,10 @@ class MockSoapClientSpec extends ObjectBehavior
         $this
             ->shouldThrow(SoapFault::class)
             ->during('__soapCall', ['foo', []]);
+
+        $this
+            ->shouldThrow(SoapFault::class)
+            ->during('__call', ['foo', []]);
     }
 
     public function it_is_able_to_mock_soap_calls_with_an_array_of_responses()

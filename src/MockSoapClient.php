@@ -9,10 +9,12 @@ use SoapClient;
 use SoapFault;
 use SoapHeader;
 
+use function array_key_exists;
 use function count;
 use function func_get_args;
-use function is_array;
 use function is_callable;
+
+use const ARRAY_FILTER_USE_KEY;
 
 /**
  * Class MockSoapClient.
@@ -20,12 +22,12 @@ use function is_callable;
 class MockSoapClient extends SoapClient
 {
     /**
-     * @var int
+     * @var array<string, int>
      */
-    private $currentIndex;
+    private $indexes;
 
     /**
-     * @var array<mixed>|callable
+     * @var array<mixed>
      */
     private $responses;
 
@@ -36,12 +38,35 @@ class MockSoapClient extends SoapClient
      */
     public function __construct($responses = null)
     {
-        if (false === is_array($responses) && false === is_callable($responses)) {
-            throw new InvalidArgumentException('The response argument must be an array or a callable.');
+        $responses = (array) $responses;
+
+        if ([] === $responses) {
+            throw new InvalidArgumentException('The response argument cannot be empty.');
         }
 
         $this->responses = $responses;
-        $this->currentIndex = 0;
+        $this->indexes = [
+            '*' => 0,
+        ];
+    }
+
+    /**
+     * @param string $function_name
+     * @param array<mixed> $arguments
+     *
+     * @throws \SoapFault
+     *
+     * @return mixed
+     */
+    public function __call($function_name, $arguments = [])
+    {
+        try {
+            $response = $this->__soapCall($function_name, $arguments);
+        } catch (SoapFault $exception) {
+            throw $exception;
+        }
+
+        return $response;
     }
 
     /**
@@ -62,25 +87,41 @@ class MockSoapClient extends SoapClient
         $input_headers = null,
         &$output_headers = null
     ) {
-        $index = $this->currentIndex++;
-
-        $responses = $this->responses;
-
-        if (is_callable($responses)) {
-            return ($responses)(...func_get_args());
+        if (false === array_key_exists($function_name, $this->indexes)) {
+            $this->indexes[$function_name] = 0;
         }
 
-        $index %= count($responses);
+        $index = &$this->indexes['*'];
+        $responses = $this->responses;
+
+        if (true === array_key_exists($function_name, $responses)) {
+            $responses = (array) $responses[$function_name];
+            $index = &$this->indexes[$function_name];
+        }
+
+        $index %= count(
+            array_filter(
+                $responses,
+                static function (string $key) {
+                    return is_numeric($key);
+                },
+                ARRAY_FILTER_USE_KEY
+            )
+        );
 
         $response = $responses[$index];
 
         if (is_callable($response)) {
+            ++$index;
+
             return ($response)(...func_get_args());
         }
 
         if ($response instanceof SoapFault) {
             throw $response;
         }
+
+        ++$index;
 
         return $response;
     }
