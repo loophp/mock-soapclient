@@ -16,7 +16,7 @@ Pretty useful for testing.
 
 ## Installation
 
-```composer require loophp/mock-soapclient```
+```composer require loophp/mock-soapclient --dev```
 
 ## Usage
 

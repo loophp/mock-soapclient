@@ -1,6 +1,12 @@
 {
     "name": "loophp/mock-soapclient",
     "description": "A friendly mockable SOAP client, useful for tests.",
+    "keywords": [
+        "testing",
+        "soap",
+        "ext-soap",
+        "mock"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -9,14 +15,14 @@
         }
     ],
     "require": {
-        "ext-soap": "^7.1"
+        "ext-soap": "*"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.6",
+        "drupol/php-conventions": "^1.8.4",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3",
-        "infection/infection": "^0.12.2 || ^0.13.6 || ^0.14.4 || ^0.15.0",
-        "phpspec/phpspec": "^5.1.2 || ^6.1.1",
-        "vimeo/psalm": "^3.9"
+        "infection/infection": "^0.12.2 || ^0.13.6 || ^0.14.4 || ^0.15.3",
+        "phpspec/phpspec": "^6.2.1",
+        "vimeo/psalm": "^3.12.2"
     },
     "config": {
         "sort-packages": true

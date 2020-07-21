@@ -47,7 +47,7 @@ class MockSoapClient extends SoapClient
      * @param string $function_name
      * @param array<mixed> $arguments
      *
-     * @throws \SoapFault
+     * @throws SoapFault
      *
      * @return mixed
      */
@@ -102,8 +102,6 @@ class MockSoapClient extends SoapClient
      * Build a simple Infinite iterator.
      *
      * @param array<mixed> $data
-     *
-     * @return InfiniteIterator
      */
     private function buildIterator(array $data): InfiniteIterator
     {
