@@ -17,9 +17,6 @@ use function is_callable;
 
 use const ARRAY_FILTER_USE_KEY;
 
-/**
- * Class MockSoapClient.
- */
 class MockSoapClient extends SoapClient
 {
     /**
@@ -30,7 +27,7 @@ class MockSoapClient extends SoapClient
     /**
      * MockSoapClient constructor.
      *
-     * @param array<mixed>|callable $responses
+     * @param mixed $responses
      */
     public function __construct($responses = null)
     {
@@ -39,8 +36,6 @@ class MockSoapClient extends SoapClient
         if ([] === $responses) {
             throw new InvalidArgumentException('The response argument cannot be empty.');
         }
-
-        $this->iterators = $this->buildIterators($responses);
     }
 
     /**
@@ -87,15 +82,13 @@ class MockSoapClient extends SoapClient
         $response = $iterator->current();
         $iterator->next();
 
-        if (true === is_callable($response)) {
-            return ($response)(...func_get_args());
-        }
-
         if ($response instanceof SoapFault) {
             throw $response;
         }
 
-        return $response;
+        return true === is_callable($response) ?
+            ($response)(...func_get_args()):
+            $response;
     }
 
     /**
@@ -114,24 +107,24 @@ class MockSoapClient extends SoapClient
     /**
      * Build the structure of iterators.
      *
-     * @param array<mixed> $data
+     * @param array<mixed|callable> $data
      *
      * @return array<int|string, InfiniteIterator>
      */
     private function buildIterators(array $data): array
     {
-        $iterators = [
-            '*' => $this->buildIterator(array_filter($data, 'is_numeric', ARRAY_FILTER_USE_KEY)),
-        ];
+        return array_reduce(
+            array_keys($data),
+            function ($iterators, $key) use ($data) {
+                if (false === is_numeric($key)) {
+                    $iterators[$key] = $this->buildIterator((array) $data[$key]);
+                }
 
-        foreach ($data as $key => $response) {
-            if (true === is_numeric($key)) {
-                continue;
-            }
-
-            $iterators[$key] = $this->buildIterator((array) $data[$key]);
-        }
-
-        return $iterators;
+                return $iterators;
+            },
+            [
+                '*' => $this->buildIterator(array_filter($data, 'is_numeric', ARRAY_FILTER_USE_KEY)),
+            ]
+        );
     }
 }

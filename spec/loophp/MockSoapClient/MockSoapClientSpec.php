@@ -12,7 +12,7 @@ use stdClass;
 
 class MockSoapClientSpec extends ObjectBehavior
 {
-    public function it_can_handle_an_array_of_responses_as_callable()
+    public function it_handle_an_array_of_responses_as_callable()
     {
         $responses = [
             static function (string $method, array $arguments) {
@@ -41,7 +41,7 @@ class MockSoapClientSpec extends ObjectBehavior
             ->during('__soapCall', ['foo', []]);
     }
 
-    public function it_can_handle_complex_structure_of_responses()
+    public function it_handle_complex_structure_of_responses()
     {
         $responses = [
             'a',
@@ -102,7 +102,7 @@ class MockSoapClientSpec extends ObjectBehavior
             ->shouldReturn('a');
     }
 
-    public function it_can_use_a_simple_callable_as_response()
+    public function it_use_a_simple_callable_as_response()
     {
         $responses = static function ($method, $arguments) {
             return $method;
@@ -115,14 +115,7 @@ class MockSoapClientSpec extends ObjectBehavior
             ->shouldReturn('foo');
     }
 
-    public function it_foo()
-    {
-        $this
-            ->shouldThrow(InvalidArgumentException::class)
-            ->during('__construct', [null]);
-    }
-
-    public function it_is_able_to_handle_exception()
+    public function it_handle_exception()
     {
         $responses = [
             new SoapFault('Server', 'foo'),
@@ -139,7 +132,7 @@ class MockSoapClientSpec extends ObjectBehavior
             ->during('__call', ['foo', []]);
     }
 
-    public function it_is_able_to_mock_soap_calls_with_an_array_of_responses()
+    public function it_mock_soap_calls_with_an_array_of_responses()
     {
         $responses = ['a', 'b', 'c'];
 
@@ -162,7 +155,7 @@ class MockSoapClientSpec extends ObjectBehavior
             ->shouldReturn('a');
     }
 
-    public function it_is_able_to_mock_soap_calls_with_an_callable_of_responses()
+    public function it_mock_soap_calls_with_an_callable_of_responses()
     {
         $responses = static function ($method, $arguments) {
             return $method;
