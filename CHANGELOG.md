@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0](https://github.com/loophp/mock-soapclient/compare/1.1.3...1.2.0)
+
+### Commits
+
+- refactor: Cleanup, static types, optimizations. [`4dcfe2b`](https://github.com/loophp/mock-soapclient/commit/4dcfe2bbb23be4372da9df913796fb52b5523283)
+- chore: Update static dev config files. [`3dbebe7`](https://github.com/loophp/mock-soapclient/commit/3dbebe786f299ffd2dbba695d4675cf2a192f6b5)
+- docs: Update README. [`c414f46`](https://github.com/loophp/mock-soapclient/commit/c414f461606527806f259f75236dd800da5c6ad2)
+- chore: Minimum version of PHP is now 7.4 [`65b1e5a`](https://github.com/loophp/mock-soapclient/commit/65b1e5a30ff9fc713e5ec3ba60a22f068248a9cb)
+- ci: Update Github actions configuration. [`7d2a66a`](https://github.com/loophp/mock-soapclient/commit/7d2a66a650712693afcbca9b87b632ea57fa3cd6)
+- docs: Add CHANGELOG.md file. [`cb9f40e`](https://github.com/loophp/mock-soapclient/commit/cb9f40eff9a387df7493a4b937e8fb3b21b869cc)
+- wip [`4604bd0`](https://github.com/loophp/mock-soapclient/commit/4604bd092b740d801363a7c827935add55fc892c)
+- Update CI. [`944a417`](https://github.com/loophp/mock-soapclient/commit/944a41745b7ce26db7ae172bff4a823253cb7e77)
+
 ## [1.1.3](https://github.com/loophp/mock-soapclient/compare/1.1.2...1.1.3) - 2020-07-21
 
 ### Commits
