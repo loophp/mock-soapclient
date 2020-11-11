@@ -6,7 +6,6 @@ namespace loophp\MockSoapClient;
 
 use ArrayIterator;
 use InfiniteIterator;
-use InvalidArgumentException;
 use SoapClient;
 use SoapFault;
 use SoapHeader;
@@ -29,13 +28,9 @@ class MockSoapClient extends SoapClient
      *
      * @param mixed $responses
      */
-    public function __construct($responses = null)
+    public function __construct($responses)
     {
-        $responses = (array) $responses;
-
-        if ([] === $responses) {
-            throw new InvalidArgumentException('The response argument cannot be empty.');
-        }
+        $this->iterators = $this->buildIterators((array) $responses);
     }
 
     /**
@@ -87,7 +82,7 @@ class MockSoapClient extends SoapClient
         }
 
         return true === is_callable($response) ?
-            ($response)(...func_get_args()):
+            ($response)(...func_get_args()) :
             $response;
     }
 
@@ -107,7 +102,7 @@ class MockSoapClient extends SoapClient
     /**
      * Build the structure of iterators.
      *
-     * @param array<mixed|callable> $data
+     * @param array<callable|mixed> $data
      *
      * @return array<int|string, InfiniteIterator>
      */
@@ -115,7 +110,12 @@ class MockSoapClient extends SoapClient
     {
         return array_reduce(
             array_keys($data),
-            function ($iterators, $key) use ($data) {
+            /**
+             * @param int|string $key
+             *
+             * @return array<int|string, InfiniteIterator>
+             */
+            function (array $iterators, $key) use ($data): array {
                 if (false === is_numeric($key)) {
                     $iterators[$key] = $this->buildIterator((array) $data[$key]);
                 }

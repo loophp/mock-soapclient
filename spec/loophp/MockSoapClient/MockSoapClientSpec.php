@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace spec\loophp\MockSoapClient;
 
-use InvalidArgumentException;
 use loophp\MockSoapClient\MockSoapClient;
 use PhpSpec\ObjectBehavior;
 use SoapFault;
-use stdClass;
 
 class MockSoapClientSpec extends ObjectBehavior
 {
@@ -102,19 +100,6 @@ class MockSoapClientSpec extends ObjectBehavior
             ->shouldReturn('a');
     }
 
-    public function it_use_a_simple_callable_as_response()
-    {
-        $responses = static function ($method, $arguments) {
-            return $method;
-        };
-
-        $this->beConstructedWith($responses);
-
-        $this
-            ->foo()
-            ->shouldReturn('foo');
-    }
-
     public function it_handle_exception()
     {
         $responses = [
@@ -130,6 +115,12 @@ class MockSoapClientSpec extends ObjectBehavior
         $this
             ->shouldThrow(SoapFault::class)
             ->during('__call', ['foo', []]);
+    }
+
+    public function it_is_initializable()
+    {
+        $this->beConstructedWith('foo');
+        $this->shouldHaveType(MockSoapClient::class);
     }
 
     public function it_mock_soap_calls_with_an_array_of_responses()
@@ -172,17 +163,16 @@ class MockSoapClientSpec extends ObjectBehavior
             ->shouldReturn('bar');
     }
 
-    public function it_is_initializable()
+    public function it_use_a_simple_callable_as_response()
     {
-        $this->shouldHaveType(MockSoapClient::class);
-    }
+        $responses = static function ($method, $arguments) {
+            return $method;
+        };
 
-    public function it_only_accept_responses_as_array_or_callable()
-    {
-        $responses = new stdClass();
+        $this->beConstructedWith($responses);
 
         $this
-            ->shouldThrow(InvalidArgumentException::class)
-            ->during('__construct', [$responses]);
+            ->foo()
+            ->shouldReturn('foo');
     }
 }
