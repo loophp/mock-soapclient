@@ -1,18 +1,21 @@
-[![Latest Stable Version](https://img.shields.io/packagist/v/loophp/mock-soapclient.svg?style=flat-square)](https://packagist.org/packages/loophp/mock-soapclient)
- [![GitHub stars](https://img.shields.io/github/stars/loophp/mock-soapclient.svg?style=flat-square)](https://packagist.org/packages/loophp/mock-soapclient)
- [![Total Downloads](https://img.shields.io/packagist/dt/loophp/mock-soapclient.svg?style=flat-square)](https://packagist.org/packages/loophp/mock-soapclient)
- [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/loophp/mock-soapclient/Continuous%20Integration?style=flat-square)](https://github.com/loophp/mock-soapclient/actions)
- [![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/loophp/mock-soapclient/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/loophp/mock-soapclient/?branch=master)
- [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/loophp/mock-soapclient/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/loophp/mock-soapclient/?branch=master)
- [![Type Coverage](https://shepherd.dev/github/loophp/mock-soapclient/coverage.svg)](https://shepherd.dev/github/loophp/mock-soapclient)
- [![License](https://img.shields.io/packagist/l/loophp/mock-soapclient.svg?style=flat-square)](https://packagist.org/packages/loophp/mock-soapclient)
- [![Donate!](https://img.shields.io/badge/Donate-Paypal-brightgreen.svg?style=flat-square)](https://paypal.me/drupol)
- 
+[![Latest Stable Version][latest stable version]][packagist]
+ [![GitHub stars][github stars]][packagist]
+ [![Total Downloads][total downloads]][packagist]
+ [![GitHub Workflow Status][github workflow status]][github actions]
+ [![Scrutinizer code quality][code quality]][code quality link]
+ [![Type Coverage][type coverage]][sheperd type coverage]
+ [![Code Coverage][code coverage]][code quality link]
+ [![License][license]][packagist]
+ [![Donate!][donate github]][github sponsor]
+ [![Donate!][donate paypal]][paypal sponsor]
+
 # Mock SOAP Client
 
-Mock a SOAP client.
+A fake and predictable SOAP client ;-)
 
-Pretty useful for testing.
+This library let you configure a SOAP client and the responses it returns.
+
+Not any real SOAP requests are sent, the sole purpose of this library is for testing.
 
 ## Installation
 
@@ -182,3 +185,38 @@ Before each commit some inspections are executed with [GrumPHP](https://github.c
 ## Contributing
 
 Feel free to contribute to this library by sending Github pull requests.
+
+If you can't contribute to the code, you can also sponsor me on [Github][github sponsor] or [Paypal][paypal sponsor].
+
+## Changelog
+
+See [CHANGELOG.md][changelog-md] for a changelog based on [git commits][git-commits].
+
+For more detailed changelogs, please check [the release changelogs][changelog-releases].
+
+[latest stable version]: https://img.shields.io/packagist/v/loophp/mock-soapclient.svg?style=flat-square
+[packagist]: https://packagist.org/packages/loophp/mock-soapclient
+
+[github stars]: https://img.shields.io/github/stars/loophp/mock-soapclient.svg?style=flat-square
+
+[total downloads]: https://img.shields.io/packagist/dt/loophp/mock-soapclient.svg?style=flat-square
+
+[github workflow status]: https://img.shields.io/github/workflow/status/loophp/mock-soapclient/Continuous%20Integration?style=flat-square
+[github actions]: https://github.com/loophp/mock-soapclient/actions
+
+[code quality]: https://img.shields.io/scrutinizer/quality/g/loophp/mock-soapclient/master.svg?style=flat-square
+[code quality link]: https://scrutinizer-ci.com/g/loophp/mock-soapclient/?branch=master
+
+[type coverage]: https://shepherd.dev/github/loophp/mock-soapclient/coverage.svg
+[sheperd type coverage]: https://shepherd.dev/github/loophp/mock-soapclient
+
+[code coverage]: https://img.shields.io/scrutinizer/coverage/g/loophp/mock-soapclient/master.svg?style=flat-square
+[code quality link]: https://img.shields.io/scrutinizer/quality/g/loophp/mock-soapclient/master.svg?style=flat-square
+
+[license]: https://img.shields.io/packagist/l/loophp/mock-soapclient.svg?style=flat-square
+
+[donate github]: https://img.shields.io/badge/Sponsor-Github-brightgreen.svg?style=flat-square
+[github sponsor]: https://github.com/sponsors/drupol
+
+[donate paypal]: https://img.shields.io/badge/Sponsor-Paypal-brightgreen.svg?style=flat-square
+[paypal sponsor]: https://www.paypal.me/drupol
