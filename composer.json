@@ -1,6 +1,6 @@
 {
     "name": "loophp/mock-soapclient",
-    "description": "A friendly mockable SOAP client, useful for tests.",
+    "description": "A fake and predictable SOAP client, useful for testing.",
     "keywords": [
         "testing",
         "soap",
@@ -15,14 +15,16 @@
         }
     ],
     "require": {
+        "php": ">= 7.4",
         "ext-soap": "*"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.7.1 || ^1.8.4 || ^2",
-        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
-        "infection/infection": "^0.12.2 || ^0.13.6 || ^0.14.4 || ^0.15.3",
-        "phpspec/phpspec": "^5.1.2 || ^6.2.1",
-        "vimeo/psalm": "^3.18.2"
+        "drupol/php-conventions": "^2.0.2",
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
+        "infection/infection": "^0.20.1",
+        "infection/phpspec-adapter": "^0.1.1",
+        "phpspec/phpspec": "^6.3 || ^7",
+        "vimeo/psalm": "^4"
     },
     "config": {
         "sort-packages": true
