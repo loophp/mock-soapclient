@@ -24,9 +24,8 @@ repository:
     allow_rebase_merge: false
     allow_squash_merge: false
     default_branch: master
-    description: "A friendly mockable SOAP client, useful for tests."
-    homepage: "https://loophp-mock-soapclient.rtfd.io"
-    topics: mock-soapclient,soapclient,soap
+    description: "A fake and predictable SOAP client, useful for your unit tests."
+    topics: soap,testing
     has_downloads: true
     has_issues: true
     has_pages: false

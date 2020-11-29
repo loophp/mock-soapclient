@@ -53,7 +53,7 @@ jobs:
                   STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
             - name: Send PSALM data
-              run: vendor/bin/psalm --shepherd --stats
+              run: vendor/bin/psalm --shepherd --stats src/
               continue-on-error: true
 
             - name: Send Scrutinizer data
