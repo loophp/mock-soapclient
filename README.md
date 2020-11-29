@@ -220,3 +220,7 @@ For more detailed changelogs, please check [the release changelogs][changelog-re
 
 [donate paypal]: https://img.shields.io/badge/Sponsor-Paypal-brightgreen.svg?style=flat-square
 [paypal sponsor]: https://www.paypal.me/drupol
+
+[changelog-md]: https://github.com/loophp/mock-soapclient/blob/master/CHANGELOG.md
+[git-commits]: https://github.com/loophp/mock-soapclient/commits/master
+[changelog-releases]: https://github.com/loophp/mock-soapclient/releases
