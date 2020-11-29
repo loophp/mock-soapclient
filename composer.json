@@ -1,11 +1,9 @@
 {
     "name": "loophp/mock-soapclient",
-    "description": "A fake and predictable SOAP client, useful for testing.",
+    "description": "A fake and predictable SOAP client, useful for your unit tests.",
     "keywords": [
-        "testing",
         "soap",
-        "ext-soap",
-        "mock"
+        "testing"
     ],
     "license": "MIT",
     "authors": [
@@ -19,7 +17,7 @@
         "ext-soap": "*"
     },
     "require-dev": {
-        "drupol/php-conventions": "^2.0.2",
+        "drupol/php-conventions": "^2.0.3",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.20.1",
         "infection/phpspec-adapter": "^0.1.1",
