@@ -17,7 +17,7 @@
         "ext-soap": "*"
     },
     "require-dev": {
-        "drupol/php-conventions": "^2.0.3",
+        "drupol/php-conventions": "^3.0.2",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.21.0",
         "infection/phpspec-adapter": "^0.1.1",
