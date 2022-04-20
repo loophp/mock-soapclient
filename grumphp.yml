@@ -2,6 +2,9 @@ imports:
   - { resource: vendor/drupol/php-conventions/config/php73/grumphp.yml }
 
 parameters:
+  # GrumPHP License
+  tasks.license.holder: Pol Dellaiera
+  tasks.license.date_from: 2019
   extra_tasks:
     phpspec:
       verbose: true
