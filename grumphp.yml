@@ -3,7 +3,6 @@ imports:
 
 parameters:
   extra_tasks:
-    psalm: ~
     phpspec:
       verbose: true
     infection:

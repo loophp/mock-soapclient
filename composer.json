@@ -1,11 +1,11 @@
 {
     "name": "loophp/mock-soapclient",
     "description": "A fake and predictable SOAP client, useful for your unit tests.",
+    "license": "MIT",
     "keywords": [
         "soap",
         "testing"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Pol Dellaiera",
@@ -17,19 +17,26 @@
         "ext-soap": "*"
     },
     "require-dev": {
-        "drupol/php-conventions": "^3.0.2",
-        "friends-of-phpspec/phpspec-code-coverage": "^6.1.0",
-        "infection/infection": "^0.21.0",
-        "infection/phpspec-adapter": "^0.1.1",
-        "phpspec/phpspec": "^6.3 || ^7",
+        "ext-xdebug": "*",
+        "drupol/php-conventions": "^5",
+        "friends-of-phpspec/phpspec-code-coverage": "^6",
+        "infection/infection": "^0.24.0",
+        "infection/phpspec-adapter": "^0.1",
+        "phpspec/phpspec": "^7",
         "vimeo/psalm": "^4"
-    },
-    "config": {
-        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
             "loophp\\MockSoapClient\\": "./src/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "infection/extension-installer": true,
+            "phpstan/extension-installer": true,
+            "phpro/grumphp": true,
+            "ergebnis/composer-normalize": true
+        },
+        "sort-packages": true
     }
 }
