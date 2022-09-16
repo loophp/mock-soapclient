@@ -1,13 +1,11 @@
 [![Latest Stable Version][latest stable version]][packagist]
- [![GitHub stars][github stars]][packagist]
- [![Total Downloads][total downloads]][packagist]
- [![GitHub Workflow Status][github workflow status]][github actions]
- [![Scrutinizer code quality][code quality]][code quality link]
- [![Type Coverage][type coverage]][sheperd type coverage]
- [![Code Coverage][code coverage]][code quality link]
- [![License][license]][packagist]
- [![Donate!][donate github]][github sponsor]
- [![Donate!][donate paypal]][paypal sponsor]
+[![GitHub stars][github stars]][packagist]
+[![Total Downloads][total downloads]][packagist]
+[![GitHub Workflow Status][github workflow status]][github actions]
+[![Scrutinizer code quality][code quality]][code quality link]
+[![Type Coverage][type coverage]][sheperd type coverage]
+[![Code Coverage][code coverage]][code quality link]
+[![License][license]][packagist] [![Donate!][donate github]][github sponsor]
 
 # Mock SOAP Client
 
@@ -15,11 +13,12 @@ A fake and predictable SOAP client ;-)
 
 This library let you configure a SOAP client and the responses it returns.
 
-Not any real SOAP requests are sent, the sole purpose of this library is for testing.
+Not any real SOAP requests are sent, the sole purpose of this library is for
+testing.
 
 ## Installation
 
-```composer require loophp/mock-soapclient --dev```
+`composer require loophp/mock-soapclient --dev`
 
 ## Usage
 
@@ -173,54 +172,70 @@ $client->c(); // ccc1
 
 ## Code quality, tests and benchmarks
 
-Every time changes are introduced into the library, [Github](https://github.com/loophp/mock-soapclient/actions) run the tests and the benchmarks.
+Every time changes are introduced into the library,
+[Github](https://github.com/loophp/mock-soapclient/actions) run the tests and
+the benchmarks.
 
-The library has tests written with [PHPSpec](http://www.phpspec.net/).
-Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.
+The library has tests written with [PHPSpec](http://www.phpspec.net/). Feel free
+to check them out in the `spec` directory. Run `composer phpspec` to trigger the
+tests.
 
-Before each commit some inspections are executed with [GrumPHP](https://github.com/phpro/grumphp), run `./vendor/bin/grumphp run` to check manually.
+Before each commit some inspections are executed with
+[GrumPHP](https://github.com/phpro/grumphp), run `./vendor/bin/grumphp run` to
+check manually.
 
-[PHPInfection](https://github.com/infection/infection) is used to ensure that your code is properly tested, run `composer infection` to test your code.
+[PHPInfection](https://github.com/infection/infection) is used to ensure that
+your code is properly tested, run `composer infection` to test your code.
 
 ## Contributing
 
-Feel free to contribute to this library by sending Github pull requests.
+Feel free to contribute by sending pull requests. We are a usually very
+responsive team and we will help you going through your pull request from the
+beginning to the end.
 
-If you can't contribute to the code, you can also sponsor me on [Github][github sponsor] or [Paypal][paypal sponsor].
+For some reasons, if you can't contribute to the code and willing to help,
+sponsoring is a good, sound and safe way to show us some gratitude for the hours
+we invested in this package.
+
+Sponsor me on [Github][github sponsors] and/or any of [the contributors][6].
 
 ## Changelog
 
-See [CHANGELOG.md][changelog-md] for a changelog based on [git commits][git-commits].
+See [CHANGELOG.md][changelog-md] for a changelog based on [git
+commits][git-commits].
 
-For more detailed changelogs, please check [the release changelogs][changelog-releases].
+For more detailed changelogs, please check [the release
+changelogs][changelog-releases].
 
-[latest stable version]: https://img.shields.io/packagist/v/loophp/mock-soapclient.svg?style=flat-square
+[latest stable version]:
+  https://img.shields.io/packagist/v/loophp/mock-soapclient.svg?style=flat-square
 [packagist]: https://packagist.org/packages/loophp/mock-soapclient
-
-[github stars]: https://img.shields.io/github/stars/loophp/mock-soapclient.svg?style=flat-square
-
-[total downloads]: https://img.shields.io/packagist/dt/loophp/mock-soapclient.svg?style=flat-square
-
-[github workflow status]: https://img.shields.io/github/workflow/status/loophp/mock-soapclient/Continuous%20Integration?style=flat-square
+[github stars]:
+  https://img.shields.io/github/stars/loophp/mock-soapclient.svg?style=flat-square
+[total downloads]:
+  https://img.shields.io/packagist/dt/loophp/mock-soapclient.svg?style=flat-square
+[github workflow status]:
+  https://img.shields.io/github/workflow/status/loophp/mock-soapclient/Continuous%20Integration?style=flat-square
 [github actions]: https://github.com/loophp/mock-soapclient/actions
-
-[code quality]: https://img.shields.io/scrutinizer/quality/g/loophp/mock-soapclient/master.svg?style=flat-square
-[code quality link]: https://scrutinizer-ci.com/g/loophp/mock-soapclient/?branch=master
-
+[code quality]:
+  https://img.shields.io/scrutinizer/quality/g/loophp/mock-soapclient/master.svg?style=flat-square
+[code quality link]:
+  https://scrutinizer-ci.com/g/loophp/mock-soapclient/?branch=master
 [type coverage]: https://shepherd.dev/github/loophp/mock-soapclient/coverage.svg
 [sheperd type coverage]: https://shepherd.dev/github/loophp/mock-soapclient
-
-[code coverage]: https://img.shields.io/scrutinizer/coverage/g/loophp/mock-soapclient/master.svg?style=flat-square
-[code quality link]: https://img.shields.io/scrutinizer/quality/g/loophp/mock-soapclient/master.svg?style=flat-square
-
-[license]: https://img.shields.io/packagist/l/loophp/mock-soapclient.svg?style=flat-square
-
-[donate github]: https://img.shields.io/badge/Sponsor-Github-brightgreen.svg?style=flat-square
+[code coverage]:
+  https://img.shields.io/scrutinizer/coverage/g/loophp/mock-soapclient/master.svg?style=flat-square
+[code quality link]:
+  https://img.shields.io/scrutinizer/quality/g/loophp/mock-soapclient/master.svg?style=flat-square
+[license]:
+  https://img.shields.io/packagist/l/loophp/mock-soapclient.svg?style=flat-square
+[donate github]:
+  https://img.shields.io/badge/Sponsor-Github-brightgreen.svg?style=flat-square
 [github sponsor]: https://github.com/sponsors/drupol
-
-[donate paypal]: https://img.shields.io/badge/Sponsor-Paypal-brightgreen.svg?style=flat-square
-[paypal sponsor]: https://www.paypal.me/drupol
-
-[changelog-md]: https://github.com/loophp/mock-soapclient/blob/master/CHANGELOG.md
+[donate paypal]:
+  https://img.shields.io/badge/Sponsor-Paypal-brightgreen.svg?style=flat-square
+[changelog-md]:
+  https://github.com/loophp/mock-soapclient/blob/master/CHANGELOG.md
 [git-commits]: https://github.com/loophp/mock-soapclient/commits/master
 [changelog-releases]: https://github.com/loophp/mock-soapclient/releases
+[6]: https://github.com/loophp/mock-soapclient/graphs/contributors
