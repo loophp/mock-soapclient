@@ -43,10 +43,8 @@ final class MockSoapClient extends SoapClient
      * @param array<mixed> $arguments
      *
      * @throws SoapFault
-     *
-     * @return mixed
      */
-    public function __call($function_name, $arguments = [])
+    public function __call($function_name, $arguments = []): mixed
     {
         try {
             $response = $this->__soapCall($function_name, $arguments);
@@ -65,8 +63,6 @@ final class MockSoapClient extends SoapClient
      * @param array<mixed>|null $output_headers
      *
      * @throws SoapFault
-     *
-     * @return mixed
      */
     public function __soapCall(
         $function_name,
@@ -74,7 +70,7 @@ final class MockSoapClient extends SoapClient
         $options = null,
         $input_headers = null,
         &$output_headers = null
-    ) {
+    ): mixed {
         $iterator = true === array_key_exists($function_name, $this->iterators) ?
             $this->iterators[$function_name] :
             $this->iterators['*'];

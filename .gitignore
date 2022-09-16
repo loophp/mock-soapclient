@@ -1,8 +1,14 @@
+/.direnv/
 /composer.lock
 /vendor
 /build
+/docs/_build
 /.php_cs.cache
-/example/
+/.php-cs-fixer.cache
+/examples/
 /.idea/
 /test.php
-/examples/
+/node_modules/
+/benchmarks/
+/.vscode/
+/.phpunit.result.cache

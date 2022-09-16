@@ -17,13 +17,12 @@
         "ext-soap": "*"
     },
     "require-dev": {
-        "ext-xdebug": "*",
+        "ext-pcov": "*",
         "drupol/php-conventions": "^5",
         "friends-of-phpspec/phpspec-code-coverage": "^6",
-        "infection/infection": "^0.24.0",
-        "infection/phpspec-adapter": "^0.1",
-        "phpspec/phpspec": "^7",
-        "vimeo/psalm": "^4"
+        "infection/infection": "^0.26",
+        "infection/phpspec-adapter": "^0.2",
+        "phpspec/phpspec": "^7"
     },
     "autoload": {
         "psr-4": {
@@ -40,8 +39,8 @@
         "sort-packages": true
     },
     "scripts": {
-        "changelog-unreleased": "docker-compose run auto_changelog -c .auto-changelog -u",
-        "changelog-version": "docker-compose run auto_changelog -c .auto-changelog -v",
+        "changelog-unreleased": "auto-changelog -c .auto-changelog -u",
+        "changelog-version": "auto-changelog -c .auto-changelog -v",
         "grumphp": "./vendor/bin/grumphp run",
         "infection": "vendor/bin/infection run -j 2"
     }

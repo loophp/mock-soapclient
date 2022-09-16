@@ -1,13 +1,16 @@
 build:
+    image: default-bionic
     nodes:
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run
+        php81:
+            environment:
+                php:
+                    version: 8.1
+                    pecl_extensions:
+                        - pcov
 
 filter:
     paths:
-        - 'src/*'
+        - "src/*"
 
 tools:
     external_code_coverage:
